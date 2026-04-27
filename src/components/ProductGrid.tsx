@@ -104,19 +104,14 @@ export function ProductGrid() {
             </motion.div>
 
             {loading ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-8">
                     {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-                        <div key={i} className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 h-[450px] animate-pulse">
-                            <div className="w-full aspect-square bg-slate-50 rounded-2xl mb-6" />
-                            <div className="h-6 bg-slate-50 rounded-lg w-3/4 mb-3" />
-                            <div className="h-4 bg-slate-50 rounded-lg w-1/2 mb-10" />
-                            <div className="space-y-3">
-                                <div className="h-2 bg-slate-50 rounded-full w-full" />
-                                <div className="grid grid-cols-3 gap-2">
-                                    <div className="h-12 bg-slate-50 rounded-xl" />
-                                    <div className="h-12 bg-slate-50 rounded-xl" />
-                                    <div className="h-12 bg-slate-50 rounded-xl" />
-                                </div>
+                        <div key={i} className="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 h-[300px] md:h-[450px] animate-pulse">
+                            <div className="w-full aspect-square bg-slate-50 rounded-xl mb-4" />
+                            <div className="h-4 bg-slate-50 rounded-lg w-3/4 mb-2" />
+                            <div className="h-3 bg-slate-50 rounded-lg w-1/2 mb-6" />
+                            <div className="space-y-2">
+                                <div className="h-1.5 bg-slate-50 rounded-full w-full" />
                             </div>
                         </div>
                     ))}
@@ -124,7 +119,7 @@ export function ProductGrid() {
             ) : (
                 <motion.div
                     layout
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+                    className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-8"
                     id="gift-list"
                 >
                     <AnimatePresence mode='popLayout'>
