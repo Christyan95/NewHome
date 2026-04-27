@@ -1,41 +1,63 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+}
 
 @layer base {
   :root {
-    /* Clean White/Green Theme */
-    --background: #ffffff;
-    --foreground: #0f172a;
+    /* Ultra Light Baby Blue Background */
+    --background: #f0f9ff;
+    
+    /* Typography System Colors */
+    --navy-blue: #172554;   /* Navy Blue / Sky 950 */
+    --pure-black: #000000;  /* Black */
+    --slate-gray: #64748b;  /* Gray / Slate 500 */
+    --pure-white: #ffffff;  /* White */
 
-    --card: #ffffff;
-    --card-foreground: #0f172a;
+    /* Mapping to Tailwind system */
+    --foreground: var(--navy-blue);
+    --card: var(--pure-white);
+    --card-foreground: var(--pure-black);
 
-    --popover: #ffffff;
-    --popover-foreground: #0f172a;
+    --primary: var(--navy-blue);
+    --primary-foreground: var(--pure-white);
 
-    --primary: #10b981;
-    /* Emerald 500 */
-    --primary-foreground: #ffffff;
-
-    --secondary: #f1f5f9;
-    /* Slate 100 */
-    --secondary-foreground: #0f172a;
+    --secondary: #f8fafc;
+    --secondary-foreground: var(--slate-gray);
 
     --muted: #f1f5f9;
-    --muted-foreground: #64748b;
+    --muted-foreground: var(--slate-gray);
 
-    --accent: #f1f5f9;
-    --accent-foreground: #0f172a;
-
-    --destructive: #ef4444;
-    --destructive-foreground: #f8fafc;
+    --accent: #f8fafc;
+    --accent-foreground: var(--navy-blue);
 
     --border: #e2e8f0;
     --input: #e2e8f0;
-    --ring: #10b981;
+    --ring: var(--navy-blue);
 
-    --radius: 0.75rem;
+    --radius: 1.5rem;
   }
 }
 
@@ -47,6 +69,17 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@layer utilities {
+  .animate-shimmer {
+    animation: shimmer 2s infinite linear;
+  }
+}
+
+@keyframes shimmer {
+  from { transform: translateX(-100%) skewX(30deg); }
+  to { transform: translateX(200%) skewX(30deg); }
 }
 
 .shadow-soft {

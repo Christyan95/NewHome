@@ -5,48 +5,49 @@ import { motion } from 'framer-motion';
 
 export function StepsSection() {
     return (
-        <section className="max-w-4xl mx-auto mt-12 md:mt-16 bg-white p-8 rounded-2xl shadow-md border border-slate-200">
-            <h3 className="text-2xl font-bold text-center text-slate-800 mb-6">Como nos presentear? É muito fácil!</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+        <section className="max-w-5xl mx-auto mt-20 md:mt-24 bg-white p-10 md:p-14 rounded-[3rem] shadow-2xl shadow-blue-900/5 border border-white relative overflow-hidden">
+            <h3 className="text-2xl md:text-3xl font-black text-center text-blue-950 mb-14 tracking-tighter">Como presentear? É muito simples!</h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center relative z-10">
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="flex flex-col items-center"
+                    viewport={{ once: true, amount: 0.1 }}
+                    className="flex flex-col items-center group"
                 >
-                    <div className="bg-emerald-100 text-emerald-600 rounded-full p-4">
-                        <MousePointerClick className="w-8 h-8" />
+                    <div className="bg-blue-50 text-blue-950 rounded-3xl p-7 group-hover:bg-blue-950 group-hover:text-white transition-all duration-500">
+                        <MousePointerClick className="w-10 h-10" />
                     </div>
-                    <h4 className="font-semibold mt-4 mb-1">1. Escolha um item</h4>
-                    <p className="text-sm">Navegue pela nossa lista e escolha o presente que mais tocar seu coração.</p>
+                    <h4 className="font-black text-xl text-blue-950 mt-6 mb-3">1. Escolha</h4>
+                    <p className="text-blue-900/50 leading-relaxed font-medium text-sm">Navegue pela nossa lista e escolha o item que deseja nos agraciar.</p>
                 </motion.div>
 
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, amount: 0.1 }}
                     transition={{ delay: 0.1 }}
-                    className="flex flex-col items-center"
+                    className="flex flex-col items-center group"
                 >
-                    <div className="bg-emerald-100 text-emerald-600 rounded-full p-4">
-                        <QrCode className="w-8 h-8" />
+                    <div className="bg-blue-50 text-blue-950 rounded-3xl p-7 group-hover:bg-blue-950 group-hover:text-white transition-all duration-500">
+                        <QrCode className="w-10 h-10" />
                     </div>
-                    <h4 className="font-semibold mt-4 mb-1">2. Pague com PIX</h4>
-                    <p className="text-sm">Você receberá o valor e nossa chave PIX. O presente é o valor em dinheiro para comprarmos o item.</p>
+                    <h4 className="font-black text-xl text-blue-950 mt-6 mb-3">2. Faça o PIX</h4>
+                    <p className="text-blue-900/50 leading-relaxed font-medium text-sm">O presente é o valor simbólico do item, enviado via QR Code.</p>
                 </motion.div>
 
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, amount: 0.1 }}
                     transition={{ delay: 0.2 }}
-                    className="flex flex-col items-center"
+                    className="flex flex-col items-center group"
                 >
-                    <div className="bg-emerald-100 text-emerald-600 rounded-full p-4">
-                        <CheckCheck className="w-8 h-8" />
+                    <div className="bg-blue-50 text-blue-950 rounded-3xl p-7 group-hover:bg-blue-950 group-hover:text-white transition-all duration-500">
+                        <CheckCheck className="w-10 h-10" />
                     </div>
-                    <h4 className="font-semibold mt-4 mb-1">3. Confirme e celebre!</h4>
-                    <p className="text-sm">Após o PIX, clique em 'Confirmei!' para dar baixa no item. E pronto! Agradecemos seu carinho.</p>
+                    <h4 className="font-black text-xl text-blue-950 mt-6 mb-3">3. Confirme</h4>
+                    <p className="text-blue-900/50 leading-relaxed font-medium text-sm">Após o pagamento, confirme no site para que possamos agradecer!</p>
                 </motion.div>
             </div>
         </section>

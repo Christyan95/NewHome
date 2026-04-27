@@ -3,8 +3,7 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Product } from '@/lib/data';
-import { cn } from '@/lib/utils';
-import { Check, Gift } from 'lucide-react';
+import { Gift } from 'lucide-react';
 import { useState } from 'react';
 import { CheckoutModal } from './CheckoutModal';
 
@@ -15,105 +14,87 @@ interface ProductCardProps {
 export function ProductCard({ product }: ProductCardProps) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // Safety check for empty or invalid product data
     if (!product || !product.totalQuotas) return null;
 
     const totalQuotas = Math.max(1, product.totalQuotas);
     const quotaValue = product.totalValue / totalQuotas;
     const progress = Math.min(100, Math.max(0, (product.soldQuotas / totalQuotas) * 100));
+    const isCompleted = product.soldQuotas >= totalQuotas;
 
     return (
         <>
             <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3 }}
-                layout
-                className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100 hover:shadow-xl hover:shadow-emerald-900/5 hover:border-emerald-100/50 transition-all duration-300 group flex flex-col h-full"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="bg-white rounded-[2.5rem] p-6 shadow-xl shadow-blue-900/5 border border-white hover:border-blue-100 transition-all duration-500 group flex flex-col h-full relative"
             >
-                {/* Image & Header */}
-                <div className="flex flex-col gap-4 mb-4">
-                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-stone-50 group-hover:bg-white transition-colors">
-                        <Image
-                            src={product.image || `https://placehold.co/400x400/f8fafc/cbd5e1?text=${encodeURIComponent(product.name)}`}
-                            alt={product.name}
-                            fill
-                            className="object-contain p-6 group-hover:scale-110 transition-transform duration-700 ease-out"
-                        />
-                        {/* Status Badge */}
-                        {product.soldQuotas === product.totalQuotas && (
-                            <div className="absolute top-3 right-3 bg-emerald-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-lg">
-                                ESGOTADO
-                            </div>
-                        )}
-                    </div>
+                {/* Image */}
+                <div className="relative w-full aspect-square rounded-3xl overflow-hidden bg-blue-50/30 mb-6">
+                    <Image
+                        src={product.image || `https://placehold.co/400x400/eff6ff/172554?text=${encodeURIComponent(product.name)}`}
+                        alt={product.name}
+                        fill
+                        className="object-contain p-8 group-hover:scale-110 transition-transform duration-700 ease-out"
+                    />
+                    {isCompleted && (
+                        <div className="absolute inset-0 bg-blue-950/40 backdrop-blur-[2px] flex items-center justify-center z-10">
+                            <span className="bg-white text-blue-950 text-[10px] font-black px-4 py-2 rounded-full shadow-2xl tracking-widest uppercase">
+                                CONCLUÍDO
+                            </span>
+                        </div>
+                    )}
+                </div>
 
-                    <div>
-                        <h3 className="font-bold text-lg text-slate-900 leading-tight group-hover:text-emerald-700 transition-colors">
+                {/* Content */}
+                <div className="flex flex-col flex-1 px-2">
+                    <div className="mb-6">
+                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">{product.category}</span>
+                        <h3 className="text-xl font-black text-black leading-tight tracking-tight group-hover:text-blue-950 transition-colors">
                             {product.name}
                         </h3>
-                        <p className="text-sm text-slate-500 mt-1">{product.category}</p>
-                    </div>
-                </div>
-
-                {/* Progress Section */}
-                <div className="space-y-3 mb-6">
-                    <div className="flex justify-between items-end text-sm">
-                        <span className={cn("font-medium transition-colors", progress === 100 ? "text-emerald-600" : "text-slate-600")}>
-                            {product.soldQuotas} de {product.totalQuotas} cotas
-                        </span>
-                        <span className="font-bold text-slate-900 bg-slate-50 px-2 py-1 rounded-lg text-xs">
-                            R$ {product.totalValue.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-                        </span>
                     </div>
 
-                    <div className="h-2.5 w-full bg-slate-100 rounded-full overflow-hidden border border-slate-100">
-                        <motion.div
-                            className="h-full bg-emerald-500"
-                            initial={{ width: 0 }}
-                            animate={{ width: `${progress}%` }}
-                            transition={{ duration: 1, ease: "easeOut" }}
-                        />
-                    </div>
-                </div>
+                    <div className="mt-auto space-y-6">
+                        {/* Progress */}
+                        <div className="space-y-3">
+                            <div className="flex justify-between items-end">
+                                <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest">Progresso</span>
+                                <span className="text-sm font-black text-black">{progress.toFixed(0)}%</span>
+                            </div>
+                            <div className="h-2 w-full bg-blue-50 rounded-full overflow-hidden border border-blue-100/30">
+                                <motion.div
+                                    initial={{ width: 0 }}
+                                    whileInView={{ width: `${progress}%` }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 1.5, ease: "circOut" }}
+                                    className="h-full bg-blue-950 rounded-full"
+                                />
+                            </div>
+                        </div>
 
-                {/* Quotas Grid */}
-                <div className="space-y-3 mt-auto">
-                    <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                        <Gift className="w-3 h-3" />
-                        Presentear com uma cota
-                    </p>
-
-                    <div className="grid grid-cols-3 gap-2">
-                        {Array.from({ length: product.totalQuotas }).map((_, index) => {
-                            const isSold = index < product.soldQuotas;
-                            return (
-                                <button
-                                    key={index}
-                                    disabled={isSold}
-                                    onClick={() => !isSold && setIsModalOpen(true)}
-                                    className={cn(
-                                        "relative py-2.5 px-1 text-[11px] font-bold rounded-xl transition-all border overflow-hidden",
-                                        isSold
-                                            ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/10 cursor-default"
-                                            : "bg-white text-slate-500 border-slate-200 hover:border-emerald-500 hover:text-emerald-600 hover:shadow-md hover:shadow-emerald-500/10 active:scale-95"
-                                    )}
-                                >
-                                    {isSold ? (
-                                        <motion.div
-                                            initial={{ scale: 0 }}
-                                            animate={{ scale: 1 }}
-                                            className="flex items-center justify-center"
-                                        >
-                                            <Check className="w-4 h-4" />
-                                        </motion.div>
-                                    ) : (
-                                        `R$ ${quotaValue.toLocaleString('pt-BR', { minimumFractionDigits: 0 })}`
-                                    )}
-                                </button>
-                            );
-                        })}
+                        {/* Price & Action */}
+                        <div className="flex items-center justify-between gap-4 pt-6 border-t border-blue-50/50">
+                            <div>
+                                <p className="text-[9px] font-black text-slate-300 uppercase tracking-widest mb-1">Cota</p>
+                                <p className="text-lg font-black text-black">R$ {quotaValue.toLocaleString('pt-BR', { minimumFractionDigits: 0 })}</p>
+                            </div>
+                            
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={() => setIsModalOpen(true)}
+                                disabled={isCompleted}
+                                className={`px-5 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all flex items-center gap-2 ${
+                                    isCompleted 
+                                    ? 'bg-blue-50 text-blue-200 cursor-not-allowed' 
+                                    : 'bg-blue-950 text-white hover:bg-black shadow-xl shadow-blue-950/20'
+                                }`}
+                            >
+                                <Gift className="w-4 h-4" />
+                                {isCompleted ? 'Esgotado' : 'Presentear'}
+                            </motion.button>
+                        </div>
                     </div>
                 </div>
             </motion.div>
@@ -124,8 +105,7 @@ export function ProductCard({ product }: ProductCardProps) {
                 product={product}
                 quotaValue={quotaValue}
                 onSuccess={() => {
-                    // Force refresh logic could go here or rely on Optimistic updates
-                    window.location.reload(); // Simple refresh for now to see updates
+                    // Real-time handles the update
                 }}
             />
         </>

@@ -2,6 +2,7 @@ import { Hero } from '@/components/Hero';
 import { ProductGrid } from '@/components/ProductGrid';
 import { StepsSection } from '@/components/StepsSection';
 import { Guestbook } from '@/components/Guestbook';
+import { CustomContribution } from '@/components/CustomContribution';
 
 export default function Home() {
   return (
@@ -13,10 +14,10 @@ export default function Home() {
       <main className="container mx-auto px-4 py-12 md:py-16">
 
         {/* Mensagem de Boas-Vindas */}
-        <section className="text-center max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold text-slate-800">Construindo nosso ninho, tijolo por tijolo.</h2>
-          <p id="welcomeMessage" className="mt-4 text-lg leading-relaxed">
-            Com o coração cheio de alegria, estamos prestes a começar um novo capítulo em nosso primeiro lar. Cada cantinho desta casa será preenchido não apenas com móveis, mas com as memórias que construiremos. Sua amizade já é o nosso maior presente, mas se desejar nos ajudar a montar nosso ninho, ficaremos eternamente gratos. Seja bem-vindo à nossa jornada!
+        <section className="text-center max-w-4xl mx-auto py-12">
+          <h2 className="text-3xl md:text-5xl font-black text-blue-950 mb-8 tracking-tighter">Construindo nosso ninho,<br />tijolo por tijolo.</h2>
+          <p id="welcomeMessage" className="text-base md:text-lg leading-relaxed text-slate-500 font-medium">
+            Com o coração cheio de alegria, estamos prestes a começar um novo capítulo em nosso primeiro lar. Cada cantinho desta casa será preenchido não apenas com móveis, mas com as memórias que construiremos. Seja bem-vindo à nossa jornada!
           </p>
         </section>
 
@@ -26,18 +27,19 @@ export default function Home() {
         {/* Lista de Presentes */}
         <ProductGrid />
 
+        {/* Contribuição Livre */}
+        <CustomContribution />
+
         {/* Mural de Recados */}
-        <section className="mt-12 md:mt-16 max-w-3xl mx-auto">
-          <Guestbook />
-        </section>
+        <Guestbook />
 
       </main>
 
       {/* Rodapé */}
-      <footer className="bg-slate-800 text-white mt-16">
-        <div className="container mx-auto px-4 py-8 text-center">
-          <p>Feito com amor para o nosso novo lar.</p>
-          <p className="text-sm text-slate-400 mt-2">© 2025 <span id="footerCoupleNames">Christyan & Vivian</span></p>
+      <footer className="bg-blue-950 text-white mt-20">
+        <div className="container mx-auto px-4 py-16 text-center">
+          <p className="font-black text-xl mb-3 tracking-tight">Feito com carinho para o nosso novo lar.</p>
+          <p className="text-[10px] text-blue-300 font-black tracking-[0.3em] uppercase">© 2026 <span id="footerCoupleNames">Christyan & Vivian</span></p>
         </div>
       </footer>
     </>

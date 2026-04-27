@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google"; // Import serif font
+import { Inter } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
-const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-serif" });
 
 export const metadata: Metadata = {
-  title: "New Home Celebration",
-  description: "Join us in celebrating our new home.",
+  title: "Chá de Casa Nova",
+  description: "Venha celebrar o nosso novo lar conosco.",
   icons: {
     icon: '/logo.svg',
   },
@@ -22,8 +21,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`${inter.variable} ${playfair.variable}`}>
-      <body className={`${inter.className} bg-slate-50 text-slate-700 antialiased`}>
+    <html lang="pt-BR" className={`${inter.variable}`}>
+      <body className={`${inter.className} bg-background text-foreground antialiased`}>
         <ScrollToTop />
         {children}
         <Toaster position="top-center" richColors />

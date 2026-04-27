@@ -65,56 +65,54 @@ export function Guestbook() {
     }
 
     return (
-        <section className="py-20 bg-slate-50">
+        <section className="py-20">
             <div className="container px-4 text-center">
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
                 >
-                    <h2 className="text-3xl md:text-4xl font-serif text-slate-900 mb-4">Mural de Recados</h2>
-                    <p className="text-slate-500 mb-12 max-w-xl mx-auto">
-                        Deixe uma mensagem para eternizar este momento conosco.
+                    <h2 className="text-3xl md:text-5xl font-black text-blue-950 mb-4 tracking-tighter">Mural de Recados</h2>
+                    <p className="text-blue-900/60 mb-12 max-w-xl mx-auto text-lg font-medium">
+                        Deixe uma mensagem especial para eternizar este momento conosco.
                     </p>
                 </motion.div>
 
-                <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 text-left">
+                <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 text-left">
                     {/* Form Section */}
                     <motion.div
-                        initial={{ opacity: 0, x: -30 }}
+                        initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        transition={{ delay: 0.2, duration: 0.8 }}
-                        className="bg-white rounded-2xl shadow-soft border border-slate-100 p-8 h-fit sticky top-24"
+                        className="bg-white rounded-[3rem] shadow-2xl shadow-blue-900/5 border border-white p-8 md:p-12 h-fit sticky top-24"
                     >
-                        <div className="space-y-6">
-                            <h3 className="font-bold text-xl text-slate-800 flex items-center gap-2">
-                                <span className="w-1 h-6 bg-emerald-500 rounded-full" />
-                                Escreva sua mensagem
+                        <div className="space-y-8">
+                            <h3 className="font-black text-2xl text-blue-950 flex items-center gap-3">
+                                <span className="w-1.5 h-8 bg-blue-950 rounded-full" />
+                                Seu Recado
                             </h3>
 
-                            <form onSubmit={handleSubmit} className="space-y-4">
+                            <form onSubmit={handleSubmit} className="space-y-6">
                                 <div>
-                                    <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Seu nome</label>
+                                    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">Seu Nome</label>
                                     <input
                                         type="text"
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
                                         placeholder="Como prefere ser chamado?"
-                                        className="w-full px-4 py-3 bg-slate-50 rounded-lg border border-slate-200 focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all placeholder:text-slate-400"
+                                        className="w-full px-6 py-5 bg-blue-50/30 rounded-2xl border-2 border-blue-50/50 focus:bg-white focus:border-blue-950 outline-none transition-all placeholder:text-blue-100 text-black font-bold"
                                         required
                                     />
                                 </div>
 
                                 <div>
-                                    <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Sua mensagem</label>
+                                    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">Sua Mensagem</label>
                                     <textarea
                                         value={content}
                                         onChange={(e) => setContent(e.target.value)}
                                         rows={4}
-                                        placeholder="Deseje algo especial para o casal..."
-                                        className="w-full px-4 py-3 bg-slate-50 rounded-lg border border-slate-200 focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all resize-none placeholder:text-slate-400"
+                                        placeholder="Deseje algo especial..."
+                                        className="w-full px-6 py-5 bg-blue-50/30 rounded-2xl border-2 border-blue-50/50 focus:bg-white focus:border-blue-950 outline-none transition-all resize-none placeholder:text-blue-100 text-black font-bold"
                                         required
                                     />
                                 </div>
@@ -122,10 +120,10 @@ export function Guestbook() {
                                 <button
                                     type="submit"
                                     disabled={submitting}
-                                    className="w-full bg-slate-900 hover:bg-emerald-600 disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-medium py-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-slate-900/10 hover:shadow-emerald-600/20 transform hover:-translate-y-1"
+                                    className="w-full bg-blue-950 hover:bg-black disabled:bg-blue-100 text-white font-black py-6 rounded-2xl flex items-center justify-center gap-3 transition-all shadow-2xl shadow-blue-950/10"
                                 >
-                                    {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
-                                    {submitting ? 'Enviando...' : 'Publicar Mensagem'}
+                                    {submitting ? <Loader2 className="w-6 h-6 animate-spin" /> : <Send className="w-5 h-5" />}
+                                    {submitting ? 'Enviando...' : 'Publicar no Mural'}
                                 </button>
                             </form>
                         </div>
@@ -133,19 +131,22 @@ export function Guestbook() {
 
                     {/* Message List */}
                     <div className="space-y-6">
-                        <h3 className="font-bold text-xl text-slate-800 mb-6 px-2">Recados Recentes</h3>
+                        <h3 className="font-black text-2xl text-blue-950 mb-8 px-2 flex items-center gap-3">
+                            <span className="w-1.5 h-8 bg-blue-200 rounded-full" />
+                            Recados Recentes
+                        </h3>
 
                         {loading ? (
-                            <div className="flex flex-col items-center justify-center py-12 text-slate-400 gap-3">
-                                <Loader2 className="w-8 h-8 animate-spin text-emerald-200" />
-                                <span className="text-sm">Carregando o amor...</span>
+                            <div className="flex flex-col items-center justify-center py-12 text-slate-300 gap-4">
+                                <Loader2 className="w-10 h-10 animate-spin" />
+                                <span className="font-black tracking-widest uppercase text-[10px]">Carregando o amor...</span>
                             </div>
                         ) : messages.length === 0 ? (
-                            <div className="text-center bg-slate-50 rounded-2xl p-12 border border-dashed border-slate-200">
-                                <p className="text-slate-500">Seja o primeiro a deixar um recado! ✨</p>
+                            <div className="text-center bg-white/50 rounded-[3rem] p-12 border-2 border-dashed border-blue-100">
+                                <p className="text-slate-400 font-bold italic">Seja o primeiro a deixar um recado! ✨</p>
                             </div>
                         ) : (
-                            <div className="space-y-4">
+                            <div className="space-y-6">
                                 {messages.map((msg, index) => (
                                     <motion.div
                                         key={msg.id}
@@ -153,20 +154,20 @@ export function Guestbook() {
                                         whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true, margin: "-20px" }}
                                         transition={{ delay: index * 0.1 }}
-                                        className="bg-white p-6 rounded-2xl border border-slate-100 hover:border-emerald-100 hover:shadow-lg hover:shadow-emerald-500/5 transition-all group"
+                                        className="bg-white p-8 rounded-[2.5rem] border border-white hover:border-blue-100 hover:shadow-2xl hover:shadow-blue-900/5 transition-all group relative overflow-hidden"
                                     >
-                                        <div className="flex gap-4 items-start">
-                                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-50 to-teal-100 flex items-center justify-center shrink-0 border border-white shadow-sm ring-1 ring-emerald-50">
-                                                <UserCircle2 className="w-6 h-6 text-emerald-600" />
+                                        <div className="flex gap-6 items-start">
+                                            <div className="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center shrink-0 border border-blue-50 group-hover:bg-blue-950 group-hover:text-white transition-colors duration-500">
+                                                <UserCircle2 className="w-8 h-8 text-slate-400 group-hover:text-white" />
                                             </div>
-                                            <div>
-                                                <div className="flex flex-col items-start gap-1 mb-2">
-                                                    <span className="font-bold text-slate-900">{msg.sender_name}</span>
-                                                    <span className="text-[10px] font-medium text-slate-400 uppercase tracking-wider">
+                                            <div className="flex-1">
+                                                <div className="flex flex-col items-start gap-1 mb-4">
+                                                    <span className="font-black text-black text-lg tracking-tight">{msg.sender_name}</span>
+                                                    <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest">
                                                         {format(new Date(msg.created_at), "d 'de' MMMM", { locale: ptBR })}
                                                     </span>
                                                 </div>
-                                                <p className="text-slate-600 text-sm leading-relaxed group-hover:text-slate-700">
+                                                <p className="text-slate-500 text-sm leading-relaxed font-medium italic">
                                                     "{msg.content}"
                                                 </p>
                                             </div>
