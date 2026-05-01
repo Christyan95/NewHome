@@ -6,6 +6,20 @@ import { UserCircle2, Send, Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { motion } from 'framer-motion';
+import { z } from 'zod';
+import { toast } from 'sonner';
+
+const messageSchema = z.object({
+    name: z.string()
+        .min(2, "O nome deve ter pelo menos 2 caracteres.")
+        .max(100, "O nome é muito longo.")
+        .trim()
+        .regex(/^[a-zA-ZÀ-ÿ\s]+$/, "O nome deve conter apenas letras e espaços."),
+    content: z.string()
+        .min(1, "A mensagem não pode estar vazia.")
+        .max(1000, "A mensagem é muito longa.")
+        .trim()
+});
 
 interface Message {
     id: string;
@@ -43,22 +57,32 @@ export function Guestbook() {
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-        if (!name.trim() || !content.trim()) return;
+        
+        // Advanced Validation & Sanitization
+        const validation = messageSchema.safeParse({ name, content });
 
+        if (!validation.success) {
+            toast.error(validation.error.errors[0].message);
+            return;
+        }
+
+        const cleanData = validation.data;
         setSubmitting(true);
+        
         try {
             const { error } = await supabase
                 .from('myhome_messages')
-                .insert([{ sender_name: name, content: content }]);
+                .insert([{ sender_name: cleanData.name, content: cleanData.content }]);
 
             if (error) throw error;
 
             setName('');
             setContent('');
+            toast.success("Recado enviado com sucesso! ✨");
             await fetchMessages(); // Refresh list
         } catch (error) {
-            console.error('Error sending message:', error);
-            alert('Erro ao enviar mensagem. Tente novamente.');
+            console.error('[SECURITY ALERT] Guestbook Submission Failed:', error);
+            toast.error("Erro ao enviar mensagem. Tente novamente.");
         } finally {
             setSubmitting(false);
         }
